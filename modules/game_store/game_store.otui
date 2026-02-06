@@ -215,6 +215,7 @@ StoreWindow
     icon-align: center
     icon-source: images/icon-trade
     size: 64 20
+    @onClick: modules.game_store.getAuctionWebsite()
 
   HorizontalSeparator
     anchors.bottom: prev.top

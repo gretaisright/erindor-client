@@ -14,7 +14,7 @@ local fpsLabel
 local pingLabel
 local topLeftYoutubeLink
 local topLeftDiscordLink
-local url_discord = ""
+local url_discord = "https://discord.gg/k5m5eQHj3W"
 local url_youtube = ""
 local lastSyncValue = -1
 local fpsEvent = nil

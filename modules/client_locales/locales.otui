@@ -2,10 +2,10 @@ LocalesMainLabel < Label
   font: sans-bold-64px
 
 LocalesButton < UIWidget
-  size: 48 48
+  size: 64 48
   image-size: 48 48
   image-smooth: true
-  text-offset: 0 36
+  text-offset: -8 36
   font: verdana-11px-antialised
 
 UIWindow
@@ -30,6 +30,6 @@ UIWindow
     anchors.bottom: parent.bottom
     layout:
       type: grid
-      cell-size: 48 50
+      cell-size: 64 50
       cell-spacing: 50
       flow: true

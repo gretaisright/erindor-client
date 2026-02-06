@@ -8,6 +8,7 @@ Services = {
     websites = "http://erindor.sytes.net", --./client_entergame "Forgot password and/or email"
     createAccount = "http://erindor.sytes.net/?account/create", --./client_entergame -- createAccount.lua
     getCoinsUrl = "http://erindor.sytes.net/?donate", --./game_market
+    discord = "https://discord.gg/k5m5eQHj3W" --./client_topmenu
 }
 
 --- Enables or disables the entire server configuration block.

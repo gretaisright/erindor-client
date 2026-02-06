@@ -26,7 +26,7 @@ EnterGameWindow
   &authenticatorHeight: 44
   &stayLoggedBoxEnabled: false
   &stayLoggedBoxHeight: 24
-  size: 280 302
+  size: 280 100
   @onEnter: EnterGame.doLogin()
 
   Label
@@ -34,7 +34,7 @@ EnterGameWindow
     !text: tr('Acc Name:') 
     anchors.left: parent.left
     anchors.top: parent.top
-    margin-top: 10
+    margin-top: 16
     opacity: 0.8
 
       
@@ -43,7 +43,7 @@ EnterGameWindow
     !text: tr('Password:')
     anchors.left: emailLabel.left
     anchors.top: emailLabel.bottom
-    margin-top: 10
+    margin-top: 16
     opacity: 0.8
 
   HiddenTextQtToggleEdit
@@ -67,7 +67,7 @@ EnterGameWindow
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: accountPasswordTextEdit.bottom
-    margin-top: 10
+    margin-top: 16
 
   QtCheckBox
     id: rememberEmailBox
@@ -76,7 +76,7 @@ EnterGameWindow
     anchors.left: passwordLabel.left
     anchors.right: parent.right
     anchors.top: prev.bottom
-    margin-top: 10
+    margin-top: 16
     opacity: 0.8
     @onCheckChange: |
       self:getParent():getChildById('autoLoginBox'):setEnabled(self:isChecked())
@@ -92,25 +92,6 @@ EnterGameWindow
 
     $on:
       visible: true
-
-  UIButton
-    !text: tr('Forgot password and/or email')
-    id: Forgot_password_email
-    font: verdana-11px-monochrome-underline
-    text-align: left
-    anchors.left: rememberEmailBox.left
-    anchors.right: parent.right
-    anchors.top: rememberEmailBox.bottom
-    opacity: 0.8
-    margin-top: 5
-    @onClick: g_platform.openUrl(Services.websites)
-    @onSetup: | 
-        if Services and Services.websites then
-            self:setVisible(true)
-        else
-            self:setVisible(false)
-            self:hide()
-        end
 
   QtCheckBox
     id: stayLoggedBox
@@ -198,17 +179,11 @@ EnterGameWindow
     anchors.top: prev.bottom
     margin-top: 2
 
-  HorizontalSeparator
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 6
-
   QtButton
     !text: tr('Login')
     anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 9
+    anchors.top: rememberEmailBox.bottom
+    margin-top: 16
     size: 86 20
     @onClick: EnterGame.doLogin()
 
@@ -219,16 +194,7 @@ EnterGameWindow
     anchors.top: prev.bottom
     margin-top: -17
     size: 109 20
-    @onClick: |
-      self:disable()
-      createWidgetAccount()
-
-    @onSetup: | 
-      if Services and Servers_init and table.size(Servers_init) == 1 and Services.createAccount then
-        self:setVisible(true)
-      else
-        self:setVisible(false)
-      end
+    @onClick: g_platform.openUrl(Services.createAccount)
 
   Label
     id: serverInfoLabel

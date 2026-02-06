@@ -27,8 +27,9 @@ local currentIndex = 1
 GameStore = {}
 -- == Enums ==--
 GameStore.website = {
-    WEBSITE_GETCOINS = "https://github.com/mehah/otclient",
-    --IMAGES_URL =  "http://localhost/images/store/" --./game_store --https://docs.opentibiabr.com/opentibiabr/downloads/website-applications/applications#store-for-client-13-1
+    WEBSITE_GETCOINS = "http://erindor.sytes.net/?donate",
+    WEBSITE_AUCTION = "http://erindor.sytes.net/?createcharacterauction",
+    --IMAGES_URL =  "http://localhost/images/store/" --./game_store -- https://docs.opentibiabr.com/opentibiabr/downloads/website-applications/applications#store-for-client-13-1
 }
 
 GameStore.CoinType = {
@@ -118,32 +119,11 @@ local function getPageLabelHistory()
 end
 
 local function setImagenHttp(widget, url, isIcon)
-    if GameStore.website.IMAGES_URL then
-        HTTP.downloadImage(GameStore.website.IMAGES_URL .. url, function(path, err)
-            if err then
-                g_logger.warning("HTTP error: " .. err .. " - " .. GameStore.website.IMAGES_URL .. url)
-                if isIcon then
-                    widget:setIcon("/game_store/images/dynamic-image-error")
-                else
-                    widget:setImageSource("/game_store/images/dynamic-image-error")
-                    widget:setImageFixedRatio(false)
-                end
-                return
-            end
-            if isIcon then
-                widget:setIcon(path)
-            else
-                widget:setImageSource(path)
-            end
-        end)
+    if not g_resources.fileExists("/game_store/images/" .. url) then
+        widget:setImageSource("/game_store/images/dynamic-image-error")
+        widget:setImageFixedRatio(false)
     else
-        if not g_resources.fileExists("/game_store/images/" .. url) then
-            widget:setImageSource("/game_store/images/dynamic-image-error")
-            widget:setImageFixedRatio(false)
-        else
-            widget:setImageSource("/game_store/images/" .. url)
-        end
-
+        widget:setImageSource("/game_store/images/" .. url)
     end
 end
 
@@ -668,7 +648,7 @@ function onParseStoreGetCategories(buttons)
         end
     end
 
-    local orderedCategoryNames = {"Home", "Premium Time", "Consumables", "Cosmetics", "Houses", "Boosts", "Extras",
+    local orderedCategoryNames = {"Home", "Premium Services", "Erindor", "Consumables", "Cosmetics", "Houses", "Boosts", "Extras",
                                 "Tournament"}
 
     local priority = {}
@@ -840,6 +820,14 @@ end
 function getCoinsWebsite()
     if GameStore.website.WEBSITE_GETCOINS ~= "" then
         g_platform.openUrl(GameStore.website.WEBSITE_GETCOINS)
+    else
+        sendMessageBox("Error", "No data for store URL.")
+    end
+end
+
+function getAuctionWebsite()
+    if GameStore.website.WEBSITE_AUCTION ~= "" then
+        g_platform.openUrl(GameStore.website.WEBSITE_AUCTION)
     else
         sendMessageBox("Error", "No data for store URL.")
     end
