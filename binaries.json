@@ -1,0 +1,8 @@
+{
+  "clients": {
+    "gl_x64": {
+      "file": "otclient_gl_x64.exe",
+      "sha256": "19233b517e530954c85209551a8cdddcf45809cf10d32670c27728e2a5fae9d4"
+    }
+  }
+}
