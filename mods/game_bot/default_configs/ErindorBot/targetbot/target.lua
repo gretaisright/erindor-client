@@ -12,6 +12,7 @@ local ui = UI.createWidget("TargetBotPanel")
 
 ui.list = ui.listPanel.list -- shortcut
 TargetBot.targetList = ui.list
+TargetBot.Looting.setup()
 
 ui.status.left:setText("Status:")
 ui.status.right:setText("Off")
@@ -168,7 +169,7 @@ ui.editor.buttons.remove.onClick = function()
 end
 
 -- public function, you can use them in your scripts
-TargetBot.isActive = function() -- return true if attacking
+TargetBot.isActive = function() -- return true if attacking or looting takes place
   return lastAction + 300 > now
 end
 

@@ -8,6 +8,37 @@ local itemsById = {}
 local containersById = {}
 local dontSave = false
 
+TargetBot.Looting.setup = function()
+  ui = UI.createWidget("TargetBotLootingPanel")
+  UI.Container(TargetBot.Looting.onItemsUpdate, true, nil, ui.items)
+  UI.Container(TargetBot.Looting.onContainersUpdate, true, nil, ui.containers)
+  ui.everyItem.onClick = function()
+    ui.everyItem:setOn(not ui.everyItem:isOn())
+    if ui.everyItem:isOn() then
+      ui.labelToLoot:setText("Items to ignore")
+    else
+      ui.labelToLoot:setText("Items to loot")
+    end
+    TargetBot.save()
+  end
+  ui.maxDangerPanel.value.onTextChange = function()
+    local value = tonumber(ui.maxDangerPanel.value:getText())
+    if not value then
+      ui.maxDangerPanel.value:setText(0)
+    end
+    if dontSave then return end
+    TargetBot.save()
+  end
+  ui.minCapacityPanel.value.onTextChange = function()
+    local value = tonumber(ui.minCapacityPanel.value:getText())
+    if not value then
+      ui.minCapacityPanel.value:setText(0)
+    end
+    if dontSave then return end
+    TargetBot.save()
+  end
+end
+
 TargetBot.Looting.onItemsUpdate = function()
   if dontSave then return end
   TargetBot.save()
@@ -18,6 +49,27 @@ TargetBot.Looting.onContainersUpdate = function()
   if dontSave then return end
   TargetBot.save()
   TargetBot.Looting.updateItemsAndContainers()
+end
+
+TargetBot.Looting.update = function(data)
+  dontSave = true
+  TargetBot.Looting.list = {}
+  ui.items:setItems(data['items'] or {})
+  ui.containers:setItems(data['containers'] or {})
+  ui.everyItem:setOn(data['everyItem'])
+  ui.maxDangerPanel.value:setText(data['maxDanger'] or 10)
+  ui.minCapacityPanel.value:setText(data['minCapacity'] or 100)
+  TargetBot.Looting.updateItemsAndContainers()
+  dontSave = false
+  --vBot
+  vBot.lootConainers = {}
+  vBot.lootItems = {}
+  for i, item in ipairs(ui.containers:getItems()) do
+    table.insert(vBot.lootConainers, item['id'])
+  end
+  for i, item in ipairs(ui.items:getItems()) do
+    table.insert(vBot.lootItems, item['id'])
+  end
 end
 
 TargetBot.Looting.save = function(data)
@@ -258,7 +310,7 @@ onCreatureDisappear(function(creature)
   if not TargetBot.isOn() then return end
   if not creature:isMonster() then return end
   local config = TargetBot.Creature.calculateParams(creature, {}) -- return {craeture, config, danger, priority}
-  if not config.config then
+  if not config.config or config.config.dontLoot then
     return
   end
   local pos = player:getPosition()
