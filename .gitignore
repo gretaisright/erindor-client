@@ -1,0 +1,7 @@
+# downloaded client binaries
+ErindorClient_dx_x64.exe
+ErindorClient_gl_x64.exe
+
+# Keep git files
+!.gitignore
+!README.txt
