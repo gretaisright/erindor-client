@@ -385,7 +385,7 @@ function assignItem(button, itemId, itemTier, dragEvent)
     end
 
     -- UseTypes: Use=5 (items usables no-multiuso)
-    if (item:isUsable() and not item:isMultiUse()) or item:isContainer() then
+    if (item:isUsable() or not item:isMultiUse()) or item:isContainer() then
         checkbox6:setEnabled(true)
 
         if not selectedCheckbox then
