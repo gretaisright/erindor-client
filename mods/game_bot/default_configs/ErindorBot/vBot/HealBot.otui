@@ -110,7 +110,7 @@ SpellHealing < FlatPanel
     id: whenSpell
     anchors.left: spellList.right
     anchors.verticalCenter: prev.verticalCenter
-    text: When
+    text: Condition
     margin-left: 7
     font: verdana-11px-rounded
 
@@ -118,8 +118,8 @@ SpellHealing < FlatPanel
     id: isSpell
     anchors.left: spellList.right
     anchors.top: whenSpell.bottom
-    text: Is
-    margin-top: 9
+    text: Threshold
+    margin-top: 6
     margin-left: 7
     font: verdana-11px-rounded
 
@@ -143,8 +143,8 @@ SpellHealing < FlatPanel
     id: castSpell
     anchors.left: isSpell.left
     anchors.top: isSpell.bottom
-    text: Cast
-    margin-top: 9
+    text: Spell
+    margin-top: 4
     font: verdana-11px-rounded
 
   TextEdit
@@ -158,8 +158,8 @@ SpellHealing < FlatPanel
     id: manaSpell
     anchors.left: castSpell.left
     anchors.top: castSpell.bottom
-    text: Mana Cost:
-    margin-top: 8
+    text: Mana Cost
+    margin-top: 4
     font: verdana-11px-rounded
 
   TextEdit
@@ -233,14 +233,14 @@ ItemHealing < FlatPanel
     anchors.top: itemList.top
     anchors.right: parent.right
     margin-right: 10
-    width: 128
+    width: 125
     font: verdana-11px-rounded
 
   Label
     id: whenItem
     anchors.left: itemList.right
     anchors.verticalCenter: prev.verticalCenter
-    text: When
+    text: Condition
     margin-left: 7
     font: verdana-11px-rounded
 
@@ -248,8 +248,8 @@ ItemHealing < FlatPanel
     id: isItem
     anchors.left: itemList.right
     anchors.top: whenItem.bottom
-    text: Is
-    margin-top: 9
+    text: Threshold
+    margin-top: 7
     margin-left: 7
     font: verdana-11px-rounded
 
@@ -273,8 +273,8 @@ ItemHealing < FlatPanel
     id: useItem
     anchors.left: isItem.left
     anchors.top: isItem.bottom
-    text: Use
-    margin-top: 15
+    text: Item
+    margin-top: 10
     font: verdana-11px-rounded
 
   BotItem
@@ -379,16 +379,17 @@ HealBotSettingsPanel < Panel
       text: Don't use items when interacting
 
     SettingCheckBox
-      id: Interval
-      text: Additional delay when looting corpses
-
-    SettingCheckBox
       id: Conditions
-      text: Also check conditions from RL Tibia
+      text: Check Mana Cost
 
     SettingCheckBox
       id: MessageDelay
       text: Cooldown based on "Aaaah..." message
+
+    SettingCheckBox
+      visible: false
+      id: Interval
+      text: Additional delay when looting corpses
 
   VerticalSeparator
     anchors.top: prev.top
@@ -434,6 +435,7 @@ HealBotSettingsPanel < Panel
       anchors.right: parent.right
 
     Button
+      visible: false
       id: ResetSettings
       anchors.bottom: parent.bottom
       anchors.horizontalCenter: parent.horizontalCenter
