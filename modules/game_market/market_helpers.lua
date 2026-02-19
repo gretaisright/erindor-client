@@ -29,7 +29,7 @@ function getTransferableTibiaCoins()
     if not player then
         return 0
     end
-    return player:getResourceBalance(91) or 0
+    return player:getResourceBalance(COIN_TRANSFERRABLE) or 0
 end
 
 function convertGold(amount, showSign)
