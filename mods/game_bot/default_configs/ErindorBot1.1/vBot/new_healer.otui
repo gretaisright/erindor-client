@@ -214,7 +214,7 @@ Vocations < FlatPanel
       text: Paladins
 
     CategoryCheckBox
-      id: Monks
+      id: monks
       text: Monks
 
     CategoryCheckBox

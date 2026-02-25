@@ -39,6 +39,13 @@ VocationPanel < Panel
     anchors.right: parent.right
     text: Paladins
 
+  BotSwitch
+    id: EM
+    anchors.bottom: ED.top
+    anchors.left: parent.horizontalCenter
+    anchors.right: parent.right
+    text: Monks
+
 SioListWindow < MainWindow
   !text: tr('Healer Options')
   size: 220 360
