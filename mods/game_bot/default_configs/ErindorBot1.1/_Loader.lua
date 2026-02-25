@@ -24,7 +24,7 @@ local luaFiles = {
   "cavebot",
   "Conditions",
   "Equipper",
-  "ingame_editor",
+  "open_bp",
   "extras",
   "new_healer",
   "HealBot",
@@ -32,16 +32,12 @@ local luaFiles = {
   "playerlist",
   "alarms",
   "Dropper",
-  "quiver_manager",
-  "quiver_label",
   "tools",
   "equip",
   "eat_food",
   "exeta",
-  "analyzer",
-  "spy_level",
   "npc_talk",
-  "xeno_menu",
+  "follow",
 }
 
 for i, file in ipairs(luaFiles) do
@@ -49,6 +45,4 @@ for i, file in ipairs(luaFiles) do
 end
 
 setDefaultTab("Main")
-UI.Separator()
-UI.Label("Private Scripts:")
 UI.Separator()

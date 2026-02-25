@@ -1,7 +1,7 @@
 Module
   name: game_bot
-  description: Advanced OTClientV8 Bot
-  author: otclient@otclient.ovh
+  description: Advanced Erindor Bot
+  author: Erindor
   sandboxed: true
   scripts: [ bot ]
   @onLoad: init()

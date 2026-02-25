@@ -35,7 +35,7 @@ function init()
 
   initCallbacks()
 
-  botButton = modules.game_mainpanel.addToggleButton('botButton', tr('Bot'), '/images/options/bot', toggle, false, 99999)
+  botButton = modules.game_mainpanel.addToggleButton('botButton', tr('Assistant'), '/images/options/bot', toggle, false, 99999)
   botButton:setOn(false)
   botButton:show()
 
@@ -224,7 +224,7 @@ function refresh()
   -- storage
   botStorage = {}
 
-  local path = "/bot/" .. configName .. "/storage/"
+  local path = "/bot/ErindorBot1.1/storage/"
   if not g_resources.directoryExists(path) then
     g_resources.makeDir(path)
   end
@@ -351,7 +351,7 @@ function createDefaultConfigs()
     local defaultConfigFiles = g_resources.listDirectoryFiles("default_configs", false, false)
     for _, configName in ipairs(defaultConfigFiles) do
         local targetDir = "/bot/" .. configName
-        if not g_resources.directoryExists(targetDir) then
+        if not g_resources.directoryExists(targetDir) and configName == "ErindorBot1.1" then
             g_resources.makeDir(targetDir)
             if not g_resources.directoryExists(targetDir) then
                 return onError("Can't create directory: " .. targetDir)

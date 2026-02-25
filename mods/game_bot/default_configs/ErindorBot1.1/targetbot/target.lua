@@ -325,3 +325,12 @@ end
 TargetBot.canLure = function()
   return lureEnabled
 end
+
+addIcon("TargetBotIcon", {item={id=5777, count=1}, text="Target"}, macro(200, function(m) 
+  TargetBot.setOn()
+  schedule(200, function() 
+      if m.isOff() then
+          TargetBot.setOff()
+      end
+  end)
+end))

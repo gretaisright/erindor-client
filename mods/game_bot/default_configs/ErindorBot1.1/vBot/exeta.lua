@@ -1,6 +1,6 @@
 local voc = player:getVocation()
 if voc == 1 or voc == 11 then
-    setDefaultTab("Tools")
+    setDefaultTab("Main")
     UI.Separator()
     local m = macro(100000, "Exeta when low hp", function() end)
     local lastCast = now
@@ -14,14 +14,6 @@ if voc == 1 or voc == 11 then
             say("exeta res")
             lastCast = now
         end
-    end)
-
-    macro(500, "ExetaIfPlayer", function()
-        if true then return end
-    	if getMonsters(1) >= 1 and getPlayers(6) > 0 then
-    		say("exeta res")
-    		delay(6000)
-    	end
     end)
     UI.Separator()
 end

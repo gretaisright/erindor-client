@@ -1,6 +1,3 @@
-# Ignore everything inside default_configs
-default_configs/*
-
 # Allow ErindorBot folder
-!default_configs/ErindorBot/
-!default_configs/ErindorBot/**
+!default_configs/ErindorBot1.1/
+!default_configs/ErindorBot1.1/**

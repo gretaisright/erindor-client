@@ -768,3 +768,32 @@ EquipManager = macro(50, function()
         end
     end
 end)
+
+local equipItem = function(normalId, activeId, slot)
+    local item = getInventoryItem(slot)
+    if item and item:getId() == activeId then
+        return false
+    end
+
+    if g_game.getClientVersion() >= 870 then
+        g_game.equipItemId(normalId)
+        return true
+    end
+
+    local itemToEquip = findItem(normalId)
+    if itemToEquip then
+        moveToSlot(itemToEquip, slot, itemToEquip:getCount())
+        return true
+    end
+end
+
+local m_ssa = macro(50, function()
+    if equipItem(3081, 3081,SlotNeck) then delay(500) end
+end)
+
+local m_might = macro(50, function()
+    if equipItem(3048, 3048, SlotFinger) then delay(500) end
+end)
+
+addIcon("SSAIcon", {item={id=3081, count=1}, text= "SSA"}, m_ssa) 
+addIcon("MightIcon", {item={id=3048, count=1}, text= "Might"}, m_might) 

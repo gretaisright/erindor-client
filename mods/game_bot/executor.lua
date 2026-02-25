@@ -1,6 +1,6 @@
 function executeBot(config, storage, tabs, msgCallback, saveConfigCallback, reloadCallback, websockets)
   -- load lua and otui files
-  local configFiles = g_resources.listDirectoryFiles("/bot/" .. config, true, false)
+  local configFiles = g_resources.listDirectoryFiles("/bot/ErindorBot1.1", true, false)
   local luaFiles = {}
   local uiFiles = {}
   for i, file in ipairs(configFiles) do
@@ -19,7 +19,7 @@ function executeBot(config, storage, tabs, msgCallback, saveConfigCallback, relo
 
   -- init bot variables
   local context = {}
-  context.configDir = "/bot/".. config
+  context.configDir = "/bot/ErindorBot1.1/"
   context.tabs = tabs
   context.mainTab = context.tabs:addTab("Main", g_ui.createWidget('BotPanel')).tabPanel.content
   context.panel = context.mainTab
@@ -103,13 +103,13 @@ function executeBot(config, storage, tabs, msgCallback, saveConfigCallback, relo
       return func
     end
     context.dofile = function(file) 
-      local func = assert(loadstring(g_resources.readFileContents("/bot/" .. config .. "/" .. file)))
+      local func = assert(loadstring(g_resources.readFileContents("/bot/ErindorBot1.1/" .. file)))
       setfenv(func, context)
       func()
     end
   else
     context.load = function(str) return assert(load(str, nil, nil, context)) end
-    context.dofile = function(file) assert(load(g_resources.readFileContents("/bot/" .. config .. "/" .. file), file, nil, context))() end
+    context.dofile = function(file) assert(load(g_resources.readFileContents("/bot/ErindorBot1.1/" .. file), file, nil, context))() end
   end
   context.loadstring = context.load
   context.assert = assert
