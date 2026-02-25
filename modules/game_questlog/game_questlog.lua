@@ -938,9 +938,10 @@ local function onQuestLine(questId, questMissions)
 end
 
 local function onQuestTracker(remainingQuests, missions)
-    if not trackerMiniWindow then
+    --[[if not trackerMiniWindow then
         showQuestTracker()
-    end
+        return
+    end]]
     
     -- Don't clear the tracker if we have locally tracked quests
     -- The server response might not include all our tracked quests
