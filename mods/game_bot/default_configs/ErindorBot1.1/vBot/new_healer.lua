@@ -66,7 +66,7 @@ if not storage[panelName] then
             party = true,
             guild = false,
             --botserver = false,
-            friends = false
+            friends = true
         }
     }
 end
