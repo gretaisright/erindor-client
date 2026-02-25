@@ -60,6 +60,7 @@ if not storage[panelName] then
         conditions = {
             knights = true,
             paladins = true,
+            monks = true,
             druids = false,
             sorcerers = false,
             party = true,
