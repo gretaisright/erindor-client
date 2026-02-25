@@ -36,6 +36,16 @@ local addCheckBox = function(id, title, defaultValue, dest, tooltip)
   widget.onClick = function()
     widget:setOn(not widget:isOn())
     settings[id] = widget:isOn()
+    if id == "checkPlayer" then
+      local label = rootWidget.newHealer.targetSettings.vocations.title
+      if not widget:isOn() then
+        label:setColor("#d9321f")
+        label:setTooltip("! WARNING ! \nTurn on check players in extras to use this feature!")
+      else
+        label:setColor("#dfdfdf")
+        label:setTooltip("")
+      end
+    end
   end
   widget:setText(title)
   widget:setTooltip(tooltip)
@@ -272,5 +282,74 @@ if true then
       pos.x = pos.x + 1
     end
     checkForDoors(pos)
+  end)
+end
+
+addCheckBox("checkPlayer", "Check Players", false, rightPanel, "Auto look on players and mark level and vocation on character model")
+if true then
+  local found
+  local function checkPlayers()
+    for i, spec in ipairs(getSpectators()) do
+      if spec:isPlayer() and spec:getText() == "" and spec:getPosition().z == posz() and spec ~= player then
+        g_game.look(spec, true)
+        found = now
+      end
+    end
+  end
+  if settings.checkPlayer then
+    schedule(500, function()
+      checkPlayers()
+    end)
+  end
+
+  onPlayerPositionChange(function(x, y)
+    if not settings.checkPlayer then return end
+    if x.z ~= y.z then
+      schedule(20, function() checkPlayers() end)
+    end
+  end)
+
+  onCreatureAppear(function(creature)
+    if not settings.checkPlayer then return end
+    if creature:isPlayer() and creature:getText() == "" and creature:getPosition().z == posz() and creature ~= player then
+      g_game.look(creature, true)
+      found = now
+    end
+  end)
+
+  local regex = [[You see ([^\(]*) \(Level ([0-9]*)\)((?:.)* of the ([\w ]*),|)]]
+  onTextMessage(function(mode, text)
+    if not settings.checkPlayer then return end
+
+    local re = regexMatch(text, regex)
+    if #re ~= 0 then
+      local name = re[1][2]
+      local level = re[1][3]
+      local guild = re[1][5] or ""
+
+      if guild:len() > 10 then
+        guild = guild:sub(1, 10) -- change to proper (last) values
+        guild = guild .. "..."
+      end
+      local voc = "?"
+      if text:lower():find("sorcerer") or text:lower():find("mage") then
+        voc = "MS"
+      elseif text:lower():find("druid") then
+        voc = "ED"
+      elseif text:lower():find("knight") then
+        voc = "EK"
+      elseif text:lower():find("paladin") then
+        voc = "RP"
+      elseif text:lower():find("monk") then
+        voc = "EM"
+      end
+      local creature = getCreatureByName(name)
+      if creature then
+        creature:setText("\n" .. level .. voc .. "\n" .. guild)
+      end
+      if found and now - found < 500 then
+        modules.game_textmessage.clearMessages()
+      end
+    end
   end)
 end
