@@ -415,10 +415,6 @@ local function isCandidate(spec)
            end
         end
     end
-
-    if not table.find(storage.playerList.friendList, name, true) then
-        return nil
-    end
     
     local okParty = config.conditions.party and spec:isPartyMember()
     local okFriend = config.conditions.friends and isFriend(spec)
