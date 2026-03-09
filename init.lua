@@ -4,7 +4,7 @@
 -- updater
 Services = {
     --updater = "http://localhost/api/updater.php", --./updater
-    status = "http://erindor.servegame.com/login.php", --./client_entergame | ./client_topmenu
+    status = "http://erindor.sytes.com/login.php", --./client_entergame | ./client_topmenu
     websites = "http://erindor.sytes.net", --./client_entergame "Forgot password and/or email"
     createAccount = "http://erindor.sytes.net/?account/create", --./client_entergame -- createAccount.lua
     getCoinsUrl = "http://erindor.sytes.net/?donate", --./game_market
@@ -77,7 +77,7 @@ if ENABLE_SERVERS then
         -- @field protocol Protocol identifier used by the server
         -- @field httpLogin Indicates if the server allows HTTP login
         --
-        ["http://erindor.servegame.com/login.php"] = {
+        ["http://erindor.sytes.com/login.php"] = {
             port = 80,
             protocol = 1511,
             httpLogin = true,
