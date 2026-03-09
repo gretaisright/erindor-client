@@ -155,13 +155,7 @@ end
 
 function onGameConnectionError(message, code)
     CharacterList.destroyLoadBox()
-    local text = translateNetworkError(code, g_game.getProtocolGame() and g_game.getProtocolGame():isConnecting(),
-                                       message)
-    errorBox = displayErrorBox(tr('Connection Error'), text)
-    errorBox.onOk = function()
-        errorBox = nil
-        CharacterList.showAgain()
-    end
+    CharacterList.showAgain()
 end
 
 function onGameUpdateNeeded(signature)
@@ -547,12 +541,12 @@ function onLogout()
 end
 
 function scheduleAutoReconnect()
-    if not g_settings.getBoolean('autoReconnect') or lastLogout + 2000 > g_clock.millis() then
+    if not g_settings.getBoolean('autoReconnect') or lastLogout + 8000 > g_clock.millis() then
         return
     end
 
     removeAutoReconnectEvent()
-    autoReconnectEvent = scheduleEvent(executeAutoReconnect, 2500)
+    autoReconnectEvent = scheduleEvent(executeAutoReconnect, 10000)
 end
 
 function executeAutoReconnect()
